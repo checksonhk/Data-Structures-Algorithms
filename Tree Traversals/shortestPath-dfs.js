@@ -18,39 +18,28 @@ const findShortestPathLength = function(maze, [xA, yA], [xB, yB]) {
   visited[yA][xA].openedBy = BY_A;
   visited[yB][xB].openedBy = BY_B;
 
-  const queueA = [visited[yA][xA]];
-  const queueB = [visited[yB][xB]];
+  const stack = [visited[yA][xA]];
 
   let iteration = 0;
 
-  while (queueA.length && queueB.length) {
+  while (stack.length) {
     iteration++;
-    const neighborsA = queueA.reduce((acc, neighbor) => acc.concat(getNeighbors(visited, neighbor.x, neighbor.y)), []);
-    queueA.length = 0;
+    const neighborsA = stack.reduce((acc, neighbor) => acc.concat(getNeighbors(visited, neighbor.x, neighbor.y)), []);
+    // console.log('BEFORE NEIGHBOR-A', neighborsA);
+    // console.log('STACK', stack);
     for (let i = 0; i < neighborsA.length; i++) {
-      const neighbor = neighborsA[i];
+      const neighbor = neighborsA.pop();
+      // console.log('NEIGHBOR', neighbor);
       if (neighbor.openedBy === BY_B) {
         return neighbor.length + iteration;
       } else if (neighbor.openedBy === NO_ONE) {
         neighbor.length = iteration;
         neighbor.openedBy = BY_A;
-        queueA.push(neighbor);
+        // console.log('NEIGHBOR-A', neighborsA);
+        stack.push(neighbor);
       }
     }
-
-    const neighborsB = queueB.reduce((acc, neighbor) => acc.concat(getNeighbors(visited, neighbor.x, neighbor.y)), []);
-    queueB.length = 0;
-    for (let i = 0; i < neighborsB.length; i++) {
-      const neighbor = neighborsB[i];
-      if (neighbor.openedBy === BY_A) {
-        return neighbor.length + iteration;
-      } else if (neighbor.openedBy === NO_ONE) {
-        neighbor.length = iteration;
-        neighbor.openedBy = BY_B;
-        queueB.push(neighbor);
-      }
-    }
-    // logMaze(visited);
+    logMaze(visited);
   }
   return -1;
 };
@@ -124,7 +113,7 @@ const eightByEight = [
   [0, 2, 0, 0, 0, 0, 1, 0],
   [0, 0, 0, 0, 0, 0, 1, 2],
 ];
-console.log(findShortestPathLength(eightByEight, [1, 7], [7, 7]));
+// console.log(findShortestPathLength(eightByEight, [1, 7], [7, 7]));
 
 const fifteenByFifteen = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -144,4 +133,4 @@ const fifteenByFifteen = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-console.log(findShortestPathLength(fifteenByFifteen, [1, 1], [8, 8]));
+// console.log(findShortestPathLength(fifteenByFifteen, [1, 1], [8, 8]));
