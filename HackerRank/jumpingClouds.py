@@ -10,16 +10,16 @@
 def jumping_on_clouds(arr):
   steps = 0
   i = 0
-  while (i < len(arr):
+  while (i < len(arr)):
     # check out of bounds and validity of step
-      if i+2 < len(arr) and arr[i+2] != 1:
-          steps += 1
-          i += 2
-      elif i+1 < len(arr) and arr[i+1] != 1:
-          steps += 1
-          i += 1
-      else:
-          break
+    if i+2 < len(arr) and arr[i+2] != 1:
+      steps += 1
+      i += 2
+    elif i+1 < len(arr) and arr[i+1] != 1:
+      steps += 1
+      i += 1
+    else:
+      break
   return steps
 
 
