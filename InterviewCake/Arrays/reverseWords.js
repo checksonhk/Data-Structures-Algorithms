@@ -26,10 +26,12 @@ function reverse_string(string, left, right) {
 function reverse_words(string) {
   // First we reverse all the characters in the entire message
   // This gives us the right word order but with each word backward
+  // time complexity of O(n)
   reverse_string(string, 0, string.length - 1);
 
   // reverse the words back if a ' ' is hit or if its the end of the string
   let currentWordIndex = 0;
+  // time complexity of O(n)
   for (let i = 0; i <= string.length; i++) {
     if (i === string.length || string[i] === ' ') {
       reverse_string(string, currentWordIndex, i - 1);
