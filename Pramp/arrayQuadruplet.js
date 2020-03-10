@@ -49,7 +49,6 @@ function findArrayQuadruplet(arr, s) {
 
   // uses .sort() uses merge sort implementation
   // time complexity is O(n log(n)) space is O(n)
-
   arr.sort((a, b) => a > b);
 
   // manually check first two pairs
@@ -61,7 +60,7 @@ function findArrayQuadruplet(arr, s) {
       const remaining = s - (arr[i] + arr[j]);
       let low = j + 1;
       let high = n - 1;
-      console.log(remaining, low, high);
+      // console.log(remaining, low, high);
 
       // puesdo binary search
       while (low < high) {
