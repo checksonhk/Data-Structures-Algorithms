@@ -36,7 +36,7 @@ function sumsTo(arr, s) {
   return arr.reduce((a, b) => a + b) == s;
 }
 
-// Overall time complexity of algorithm is O(n^3)
+// Overall time complexity of algorithm is O(n^2)
 // space complexity of O(1) ( if you disregard the O(n) from merge sort)
 function findArrayQuadruplet(arr, s) {
   const n = arr.length;
