@@ -14,6 +14,14 @@ function decodeWays(string) {
   return waysToDecode(string, 0, dp);
 }
 
+/* 
+the idea here is to use an array to store the possible ways to decode a substring
+eg decode(2263) = 2 + 22 + decode(63)
+we can use the index of the string
+eg for '2263' [-1,-1,-1,-1]
+eg for '2' and '22' [1,1]
+*/
+
 function waysToDecode(string, decodePointer, dp) {
   if (decodePointer >= string.length) {
     // '' is a valid decomposition
@@ -43,6 +51,32 @@ function validCode(string) {
     return false;
   }
   return +string >= 1 && +string <= 26;
+}
+
+// another solution which is easier to understand
+
+// idx here is the number of character its checking up to eg. how long the substring will be
+function numWays(string, idx, dp) {
+  if (idx === 0) return 1;
+  const startingIdx = string.length - idx;
+  if (string[startingIdx] == 0) return 0;
+
+  if (dp[idx] > -1) return dp[idx];
+
+  let result = numWays(string, idx - 1, dp);
+
+  if (idx >= 2) console.log(validCode(string[idx - 2]));
+
+  if (idx >= 2 && validCode(string[idx - 2])) {
+    result += numWays(string, idx - 2, dp);
+  }
+  dp[idx] = result;
+  return result;
+}
+
+function decodeWays(string) {
+  const dp = Array(string.length + 1).fill(-1);
+  return numWays(string, string.length, dp);
 }
 
 console.log(decodeWays('2263'));

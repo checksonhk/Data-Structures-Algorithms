@@ -25,3 +25,13 @@ function calcDroneMinEnergy(route) {
 
   return Math.abs(minimumFuel);
 }
+
+function calcDroneMinEnergy(route) {
+  const startingZ = route[0][2];
+  let maxZ = startingZ;
+  for (const coord of route) {
+    if (coord[2] > maxZ) maxZ = coord[2];
+  }
+
+  return maxZ - startingZ;
+}
