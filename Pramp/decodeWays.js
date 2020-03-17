@@ -5,6 +5,7 @@ A message containing letters from A-Z is being encoded to numbers using the foll
 'B' -> 2
 ...
 'Z' -> 26
+
 Given a non-empty string containing only digits, determine the total number of ways to decode it.
 */
 
@@ -18,6 +19,7 @@ function waysToDecode(string, decodePointer, dp) {
     // '' is a valid decomposition
     return 1;
   }
+
   if (dp[decodePointer] > -1) {
     return dp[decodePointer];
   }
