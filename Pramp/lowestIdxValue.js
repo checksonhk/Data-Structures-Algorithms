@@ -39,3 +39,26 @@ function indexEqualsValueSearch(arr) {
 // 3 5  since 3-5 < 0 left goes up
 // 5 6 since -1 < 0 left goes up
 // 7 7 return
+
+// Optimal Solution 
+function indexEqualsValueSearch(arr) {
+  if (arr.length < 2) return arr[0];
+
+  // left bound
+  let left = 0;
+  let right = arr.length;
+  // right bound
+  while (left < right) {
+    // mid point index
+    const mid = Math.floor((left + right) / 2);
+
+    if (arr[mid] - mid < 0) {
+      left = mid + 1;
+    } else if (arr[mid] - mid === 0 && ((mid===0)) || (arr[mid-1] - (mid-1) < 0))  {
+       return mid
+    } else {
+      right = mid-1;
+    }
+  }
+  return lower ? lowest : -1;
+}
