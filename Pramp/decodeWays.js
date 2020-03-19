@@ -65,8 +65,6 @@ function numWays(string, idx, dp) {
 
   let result = numWays(string, idx - 1, dp);
 
-  if (idx >= 2) console.log(validCode(string[idx - 2]));
-
   if (idx >= 2 && validCode(string[idx - 2])) {
     result += numWays(string, idx - 2, dp);
   }
@@ -74,9 +72,38 @@ function numWays(string, idx, dp) {
   return result;
 }
 
+// Time Complexity of O(n)
+// Space Complexity of O(n) for dp array
 function decodeWays(string) {
   const dp = Array(string.length + 1).fill(-1);
   return numWays(string, string.length, dp);
 }
 
-console.log(decodeWays('2263'));
+// console.log(decodeWays('2263'));
+
+// We can reduce to a space complexity to O(1)
+function decodeVariation(S) {
+  let pre = 27;
+  let cur = 0;
+  let first = 1; // first represents numWays(idx + 1)
+  let second = 1; // second represents numWays(idx + 2)
+
+  for (let i = S.length - 1; i >= 0; i--) {
+    // current letter, coerce to int
+    const d = +S[i];
+    if (d === 0) {
+      cur = 0;
+    } else {
+      cur = first;
+      // check if i+2 is valid
+      if (d * 10 + pre < 27) {
+        cur += second;
+      }
+    }
+    pre = d;
+    first, (second = cur), first;
+  }
+  return cur;
+}
+
+console.log(decodeVariation('2263'));
